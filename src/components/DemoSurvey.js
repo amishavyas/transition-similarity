@@ -27,7 +27,6 @@ const sexLabels = ["Female", "Male", "Prefer not to answer"];
 const ethnicityLabels = ["Hispanic or Latino", "Not Hispanic or Latino"];
 
 export default class DemoSurvey extends Component {
-
     constructor(props) {
         super(props);
         this.state = {

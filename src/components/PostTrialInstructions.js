@@ -13,8 +13,6 @@ const PostTrialInstructions = ({ nextStep }) => {
             <Title text="YOU HAVE COMPLETED THE OBSERVATION PERIOD" />
             <Typography
                 style={{ fontSize: "23px" }}
-                component="h2"
-                variant="h6"
                 align="center"
             >
                 <br />
@@ -24,8 +22,6 @@ const PostTrialInstructions = ({ nextStep }) => {
                     <Grid item md={8}>
                         <Typography
                             style={{ fontSize: "23px" }}
-                            component="h2"
-                            variant="h6"
                             align="left"
                         >
                             <br />

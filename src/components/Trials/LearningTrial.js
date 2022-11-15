@@ -15,19 +15,82 @@ window.oncontextmenu = function (event) {
     event.preventDefault();
     event.stopPropagation();
     return false;
-};
+};  
 
 class LearningTrial extends Component {
-    componentDidMount() {
-        this.props.updateTrialsState("day", this.props.day + 1);
-        this.props.updateTrialsState("buttonDisabled", true);
+    constructor(props) {
+        super(props);
+        this.state = {
+            trialStart: "",
+            keyPress: [],
+        };
     }
 
-    render() {
-        const { buttonDisabled, day, currentStim, updateTrialsState } = this.props;
+    componentDidMount() {
+        const { updateTrialsState, day } = this.props;
+        updateTrialsState("buttonDisabled", true);
+        updateTrialsState("day", day + 1);
 
-        return (
-            <div>
+        if (day >= 1) {
+            document.addEventListener("keydown", this.handleKeyPress);
+        }
+    }
+
+    componentWillUnmount() {
+        this.sendLearningData();
+    }
+
+    sendLearningData = () => {
+        const { updateTrialsState, day, currentStim, learningTrialResponses } =
+            this.props;
+        const responses = {
+            ...learningTrialResponses,
+            [day - 1]: { stim: currentStim, keyResponses: this.state.keyPress },
+        };
+        if (day >= 1) {
+            updateTrialsState("learningTrialResponses", responses);
+        }
+        return responses;
+    };
+
+    updateTrialStartTime = () => {
+        const { trialStart } = this.state;
+        if (trialStart === "") {
+            this.setState({ trialStart: Date.now() });
+        }
+    };
+
+    handleKeyPress = (e) => {
+        const { keyPress, trialStart } = this.state;
+        if (e.key === "1") {
+            const allTimestamps = [...keyPress, Date.now() - trialStart];
+            this.setState({ keyPress: allTimestamps });
+
+            /* Put a border around the video to give visual feedback on keypress */ 
+            const video = document.getElementById("videoStim");
+            video.style.border = "2px solid rgb(66,37,1,.35)";
+
+            /* Remove the border after 500 ms */ 
+            setTimeout(function () {
+                video.style.border = "2px solid rgb(66,37,1,0)";
+            }, 500);
+        }
+    };
+
+    handleVideoEnd = () => {
+        const { updateTrialsState, day } = this.props;
+
+        updateTrialsState("buttonDisabled", false);
+        if (day >= 1) {
+            document.removeEventListener("keydown", this.handleKeyPress);
+        }
+    };
+
+    render() {
+        const { buttonDisabled, day, currentStim } = this.props;
+        let prompt;
+        if (day === 1) {
+            prompt = (
                 <Typography
                     style={{ fontWeight: "bold", color: "black" }}
                     component="h1"
@@ -37,9 +100,35 @@ class LearningTrial extends Component {
                     Watch the colors of the alien eyes closely to learn about
                     the mental states they express!
                 </Typography>
-
+            );
+        }
+        if (day > 1) {
+            prompt = (
                 <Typography
-                    style={{ marginTop: "1%", fontSize: "30px", color: "black" }}
+                    style={{
+                        fontSize: "29px",
+                        fontWeight: "bold",
+                        color: "black",
+                    }}
+                    align="center"
+                >
+                    Watch the colors of the alien eyes closely to learn about
+                    the mental states they express!
+                    <br />
+                    Press the '1' key every time the alien's mental state
+                    changes.
+                </Typography>
+            );
+        }
+        return (
+            <div>
+                {prompt}
+                <Typography
+                    style={{
+                        marginTop: "5px",
+                        fontSize: "28px",
+                        color: "black",
+                    }}
                     align="center"
                 >
                     Day {day}
@@ -47,19 +136,31 @@ class LearningTrial extends Component {
                 <br />
                 <Video
                     autoPlay
-                    oncontextmenu="false"
                     muted
                     playsinline
+                    id="videoStim"
                     style={{
-                        marginTop: "-2%",
-                        marginBottom:"-3%",
+                        marginTop: "10px",
+                        marginBottom: "-3.75%",
+                        border: "2px solid rgb(66,37,1,0)",
+                        padding: "0px -15px",
+                        paddingTop: "4px", 
+                        paddingBottom: "4px", 
+                        borderRadius: "40px", 
                         opacity:
                             (!buttonDisabled && "50%") ||
                             (buttonDisabled && "100%"),
                     }}
-                    onEnded={() => updateTrialsState("buttonDisabled", false)}
+                    onPlay={this.updateTrialStartTime}
+                    onEnded={this.handleVideoEnd}
                 >
-                    <source src={"./video/" + currentStim} type="video/mp4" />
+                    <source
+                        src={
+                            "http://scraplab.org/Experiment/video/" +
+                            currentStim
+                        }
+                        type="video/mp4"
+                    />
                 </Video>
             </div>
         );

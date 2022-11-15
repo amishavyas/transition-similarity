@@ -3,17 +3,19 @@ import { Box, Button, Grid } from "@material-ui/core";
 import NextStateQuestion from "./NextStateQuestion";
 import LearningTrial from "./LearningTrial";
 import { StyledLinearProgress } from "../../StyledElements";
-import { selectedStim } from './selectedStim';
+import KeypressInstructions from "./KeypressInstructions";
+
+// Change instructions and show keypress instructions after trial 1
 
 class Trials extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            stimOrder: selectedStim(10),  
             currentStim: "",
             trial: 0,
             buttonDisabled: true,
             day: 0,
+            learningTrialResponses: {},
             // nextStateResponses directly sent to Experiment -- [...{question: , response: , RT: }]
         };
     }
@@ -23,19 +25,19 @@ class Trials extends Component {
     }
 
     componentWillUnmount() {
-        this.props.updateParentState("stimOrder", this.state.stimOrder);
+        this.props.updateParentState("learningTrialResponses", this.state.learningTrialResponses); 
     }
 
     setCurrentStim = () => {
-        const { stimOrder, trial } = this.state;
+        const { trial } = this.state;
         this.setState({
-            currentStim: stimOrder[trial],
+            currentStim: this.props.stimOrder[trial],
         });
     };
 
     nextTrial = () => {
-        const { trial, stimOrder } = this.state;
-        if (trial === stimOrder.length - 1) {
+        const { trial } = this.state;
+        if (trial === this.props.stimOrder.length - 1) {
             this.props.nextStep();
         } else {
             this.setState({ buttonDisabled: true });
@@ -50,19 +52,17 @@ class Trials extends Component {
     };
 
     render() {
-        const { currentStim, day, buttonDisabled, trial, stimOrder } = this.state;
+        const {
+            buttonDisabled,
+            currentStim,
+            day,
+            learningTrialResponses,
+            trial,
+        } = this.state;
+        const { stimOrder } = this.props;
         let content;
 
-        if (typeof currentStim !== "boolean") {
-            content = (
-                <LearningTrial
-                    updateTrialsState={this.updateTrialsState}
-                    day={day}
-                    currentStim={currentStim}
-                    buttonDisabled={buttonDisabled}
-                />
-            );
-        } else {
+        if (typeof currentStim === "boolean") {
             content = (
                 <NextStateQuestion
                     updateParentState={this.props.updateParentState}
@@ -70,6 +70,24 @@ class Trials extends Component {
                     nextStateResponses={this.props.nextStateResponses}
                 />
             );
+        } else {
+            if (currentStim.includes("instructions")) {
+                content = (
+                    <KeypressInstructions
+                        updateTrialsState={this.updateTrialsState}
+                    />
+                );
+            } else {
+                content = (
+                    <LearningTrial
+                        updateTrialsState={this.updateTrialsState}
+                        day={day}
+                        currentStim={currentStim}
+                        learningTrialResponses={learningTrialResponses}
+                        buttonDisabled={buttonDisabled}
+                    />
+                );
+            }
         }
 
         return (
@@ -98,7 +116,9 @@ class Trials extends Component {
                             marginTop: "3%",
                             marginBottom: "10%",
                             backgroundColor: "#e4d09e",
-                            opacity: (buttonDisabled && "50%") || (!buttonDisabled && "100%"),
+                            opacity:
+                                (buttonDisabled && "50%") ||
+                                (!buttonDisabled && "100%"),
                         }}
                     >
                         Next

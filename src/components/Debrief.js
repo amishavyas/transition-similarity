@@ -3,6 +3,7 @@ import { Container, Typography } from "@material-ui/core";
 import { StyledBox, Title } from "../StyledElements";
 
 class Debrief extends Component {
+    
     render() {
         return (
             <Container component="main" maxWidth="md">
@@ -26,7 +27,7 @@ class Debrief extends Component {
                     <br />
                     COMPLETION CODE
                 </Typography>
-                <StyledBox>NHLE-L6MI-4GE4-ETEV</StyledBox>
+                <StyledBox>XXXXXX</StyledBox>
 
                 <Typography component="h2" variant="h6" align="left">
                     <br />

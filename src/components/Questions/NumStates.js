@@ -48,7 +48,7 @@ class NumStates extends Component {
                     <br />
                     Based on your observations, how many different mental states
                     <br />
-                    do you think the alien tends to experience?
+                    do you think the alien can experience?
                     <br />
                     <br />
                     Please enter your response in the textbox. <br />

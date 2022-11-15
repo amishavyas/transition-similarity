@@ -3,11 +3,6 @@ import { Container, Typography } from "@material-ui/core";
 import { StyledButton, Title } from "../StyledElements";
 import styled from "styled-components";
 
-import greenAlien from "../images/GG.png";
-import blueAlien from "../images/BB.png";
-import purpleAlien from "../images/PP.png";
-import orangeAlien from "../images/OO.png";
-
 const Img = styled.img`
     height: 250px;
     width: 120px;
@@ -126,12 +121,8 @@ class Instructions extends Component {
                         and emotions similar to those experienced by humans.
                         They think that these alien mental states might be
                         related to the ever-changing color of the creature's
-                        eyes, as shown in the examples below:
+                        eyes.
                         <br /> <br />
-                        <Img src={greenAlien} alt="green alien" />
-                        <Img src={blueAlien} alt="blue alien" />
-                        <Img src={orangeAlien} alt="orange alien" />
-                        <Img src={purpleAlien} alt="purple alien" />
                     </Typography>
                 );
             case 3:

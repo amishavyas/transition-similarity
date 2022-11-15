@@ -1,12 +1,7 @@
 import React, { Component } from "react";
 import { Typography, Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import {
-    CustomSlider,
-    StyledButton,
-    StyledTextField,
-    StyledValueLabel,
-} from "../../StyledElements";
+import { CustomSlider, StyledButton, StyledTextField, StyledValueLabel } from "../../StyledElements";
 
 const GreenSlider = withStyles({
     root: {
@@ -187,6 +182,7 @@ class ColorSlider extends Component {
     };
 
     render() {
+        const { mentalState1, mentalState2, mentalState3, mentalState4 } = this.state; 
         return (
             <div>
                 <Grid container justifyContent="center">
@@ -267,7 +263,7 @@ class ColorSlider extends Component {
 
                         <Grid item xs={3} style={{ marginLeft: "2%" }}>
                             <BlueSlider
-                                value={this.state.mentalState1.blue[0]}
+                                value={mentalState1.blue[0]}
                                 valueLabelDisplay="auto"
                                 ValueLabelComponent={StyledValueLabel}
                                 onChange={(_, value) =>
@@ -280,7 +276,7 @@ class ColorSlider extends Component {
                                 style={{ marginTop: "-3px" }}
                             />
                             <GreenSlider
-                                value={this.state.mentalState1.green[0]}
+                                value={mentalState1.green[0]}
                                 valueLabelDisplay="auto"
                                 ValueLabelComponent={StyledValueLabel}
                                 onChange={(_, value) =>
@@ -293,7 +289,7 @@ class ColorSlider extends Component {
                                 style={{ marginTop: "-3px" }}
                             />
                             <OrangeSlider
-                                value={this.state.mentalState1.orange[0]}
+                                value={mentalState1.orange[0]}
                                 valueLabelDisplay="auto"
                                 ValueLabelComponent={StyledValueLabel}
                                 onChange={(_, value) =>
@@ -306,7 +302,7 @@ class ColorSlider extends Component {
                                 style={{ marginTop: "-3px" }}
                             />
                             <PurpleSlider
-                                value={this.state.mentalState1.purple[0]}
+                                value={mentalState1.purple[0]}
                                 valueLabelDisplay="auto"
                                 ValueLabelComponent={StyledValueLabel}
                                 onChange={(_, value) =>
@@ -358,7 +354,7 @@ class ColorSlider extends Component {
 
                         <Grid item xs={3} style={{ marginLeft: "2%" }}>
                             <BlueSlider
-                                value={this.state.mentalState2.blue[0]}
+                                value={mentalState2.blue[0]}
                                 valueLabelDisplay="auto"
                                 ValueLabelComponent={StyledValueLabel}
                                 onChange={(_, value) =>
@@ -371,7 +367,7 @@ class ColorSlider extends Component {
                                 style={{ marginTop: "-3px" }}
                             />
                             <GreenSlider
-                                value={this.state.mentalState2.green[0]}
+                                value={mentalState2.green[0]}
                                 valueLabelDisplay="auto"
                                 ValueLabelComponent={StyledValueLabel}
                                 onChange={(_, value) =>
@@ -384,7 +380,7 @@ class ColorSlider extends Component {
                                 style={{ marginTop: "-3px" }}
                             />
                             <OrangeSlider
-                                value={this.state.mentalState2.orange[0]}
+                                value={mentalState2.orange[0]}
                                 valueLabelDisplay="auto"
                                 ValueLabelComponent={StyledValueLabel}
                                 onChange={(_, value) =>
@@ -397,7 +393,7 @@ class ColorSlider extends Component {
                                 style={{ marginTop: "-3px" }}
                             />
                             <PurpleSlider
-                                value={this.state.mentalState2.purple[0]}
+                                value={mentalState2.purple[0]}
                                 valueLabelDisplay="auto"
                                 ValueLabelComponent={StyledValueLabel}
                                 onChange={(_, value) =>
@@ -449,7 +445,7 @@ class ColorSlider extends Component {
 
                         <Grid item xs={3} style={{ marginLeft: "2%" }}>
                             <BlueSlider
-                                value={this.state.mentalState3.blue[0]}
+                                value={mentalState3.blue[0]}
                                 valueLabelDisplay="auto"
                                 ValueLabelComponent={StyledValueLabel}
                                 onChange={(_, value) =>
@@ -463,7 +459,7 @@ class ColorSlider extends Component {
                             />
                             <GreenSlider
                                 width="100"
-                                value={this.state.mentalState3.green[0]}
+                                value={mentalState3.green[0]}
                                 valueLabelDisplay="auto"
                                 ValueLabelComponent={StyledValueLabel}
                                 onChange={(_, value) =>
@@ -476,7 +472,7 @@ class ColorSlider extends Component {
                                 style={{ marginTop: "-3px" }}
                             />
                             <OrangeSlider
-                                value={this.state.mentalState3.orange[0]}
+                                value={mentalState3.orange[0]}
                                 valueLabelDisplay="auto"
                                 ValueLabelComponent={StyledValueLabel}
                                 onChange={(_, value) =>
@@ -489,7 +485,7 @@ class ColorSlider extends Component {
                                 style={{ marginTop: "-3px" }}
                             />
                             <PurpleSlider
-                                value={this.state.mentalState3.purple[0]}
+                                value={mentalState3.purple[0]}
                                 valueLabelDisplay="auto"
                                 ValueLabelComponent={StyledValueLabel}
                                 onChange={(_, value) =>
@@ -541,7 +537,7 @@ class ColorSlider extends Component {
 
                         <Grid item xs={3} style={{ marginLeft: "2%" }}>
                             <BlueSlider
-                                value={this.state.mentalState4.blue[0]}
+                                value={mentalState4.blue[0]}
                                 valueLabelDisplay="auto"
                                 ValueLabelComponent={StyledValueLabel}
                                 onChange={(_, value) =>
@@ -554,7 +550,7 @@ class ColorSlider extends Component {
                                 style={{ marginTop: "-3px" }}
                             />
                             <GreenSlider
-                                value={this.state.mentalState4.green[0]}
+                                value={mentalState4.green[0]}
                                 valueLabelDisplay="auto"
                                 ValueLabelComponent={StyledValueLabel}
                                 onChange={(_, value) =>
@@ -567,7 +563,7 @@ class ColorSlider extends Component {
                                 style={{ marginTop: "-3px" }}
                             />
                             <OrangeSlider
-                                value={this.state.mentalState4.orange[0]}
+                                value={mentalState4.orange[0]}
                                 valueLabelDisplay="auto"
                                 ValueLabelComponent={StyledValueLabel}
                                 onChange={(_, value) =>
@@ -580,7 +576,7 @@ class ColorSlider extends Component {
                                 style={{ marginTop: "-3px" }}
                             />
                             <PurpleSlider
-                                value={this.state.mentalState4.purple[0]}
+                                value={mentalState4.purple[0]}
                                 valueLabelDisplay="auto"
                                 ValueLabelComponent={StyledValueLabel}
                                 onChange={(_, value) =>

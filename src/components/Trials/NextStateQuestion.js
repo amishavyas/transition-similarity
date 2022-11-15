@@ -141,7 +141,7 @@ class NextStateQuestion extends Component {
                         <Label>
                             <input
                                 type="radio"
-                                class="alienRadio"
+                                className="alienRadio"
                                 name="nextState"
                                 value={Object.keys(alienMentalStates[0])}
                                 onChange={this.handleRadio}
@@ -155,7 +155,7 @@ class NextStateQuestion extends Component {
                         <Label>
                             <input
                                 type="radio"
-                                class="alienRadio"
+                                className="alienRadio"
                                 name="nextState"
                                 value={Object.keys(alienMentalStates[1])}
                                 onChange={this.handleRadio}
@@ -169,7 +169,7 @@ class NextStateQuestion extends Component {
                         <Label>
                             <input
                                 type="radio"
-                                class="alienRadio"
+                                className="alienRadio"
                                 name="nextState"
                                 value={Object.keys(alienMentalStates[2])}
                                 onChange={this.handleRadio}

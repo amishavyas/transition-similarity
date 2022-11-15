@@ -6,6 +6,7 @@ import DemoSurvey from "./DemoSurvey";
 import PostTrialInstructions from "./PostTrialInstructions";
 import PostTrialQuestions from "./PostTrialQuestions";
 import Debrief from "./Debrief";
+import { stim, videos } from "./selectedStim";
 import { v4 as uuidv4 } from "uuid";
 
 class Experiment extends Component {
@@ -14,6 +15,9 @@ class Experiment extends Component {
         this.state = {
             subID: uuidv4(),
             step: 1,
+            videos: videos,
+            stimOrder: stim,
+            nextStateResponses: [],
         };
     }
 
@@ -34,8 +38,23 @@ class Experiment extends Component {
         window.scrollTo(0, 0);
     };
 
+    async preloader() {
+        /* Create new Video object for each video. Forces the browser to load all videos. */
+        videos.forEach((media) => {
+            var video = document.createElement("video");
+            video.setAttribute(
+                "src",
+                "http://scraplab.org/Experiment/video/" + media
+            );
+        });
+    }
+
+    componentDidMount() {
+        this.preloader();
+    }
+
     render() {
-        const { step, nextStateResponses } = this.state;
+        const { step, stimOrder, nextStateResponses, videos } = this.state;
 
         switch (step) {
             case 1:
@@ -51,6 +70,8 @@ class Experiment extends Component {
                 return (
                     <Trials
                         nextStep={this.nextStep}
+                        stimOrder={stimOrder}
+                        videos={videos}
                         updateParentState={this.updateParentState}
                         nextStateResponses={nextStateResponses}
                     />
@@ -75,7 +96,6 @@ class Experiment extends Component {
                 return (
                     <Debrief
                         nextStep={this.nextStep}
-                        handleDataSubmit={this.handleDataSubmit}
                     />
                 );
             default:

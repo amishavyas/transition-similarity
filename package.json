@@ -1,6 +1,6 @@
 {
   "name": "ms-transition-similarity",
-  "homepage": "https://rcweb.dartmouth.edu/Scraplab/Experiment/",
+  "homepage": "https://scraplab.org/Experiment",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "rimraf ./build && react-scripts build && rimraf ./build/**/*.map",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
