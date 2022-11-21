@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { Typography, Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import { CustomSlider, StyledButton, StyledTextField, StyledValueLabel } from "../../StyledElements";
+import {
+    CustomSlider,
+    StyledButton,
+    StyledTextField,
+    StyledValueLabel,
+} from "../../StyledElements";
 
 const GreenSlider = withStyles({
     root: {
@@ -121,16 +126,25 @@ class ColorSlider extends Component {
         let findDuplicates = (arr) =>
             arr.filter((item, index) => arr.indexOf(item) !== index);
         let findEmptyLabels = (arr) =>
-            arr.filter((label) => label === "" || label === " ");
+            arr.filter((label) => "^+$".includes(label));
+        let findNumeric = (arr) => arr.filter((label) => /\d/.test(label));
+        let filteredArray = labelArray.map((label) => label.trim()); // '   A' = 'A'
 
-        if (findEmptyLabels(labelArray).length !== 0) {
+        if (findEmptyLabels(filteredArray).length !== 0) {
             alert(
-                "You have not entered a name for each state. \n \nPlease check your responses and enter a unique name for each state."
+                "You have not entered a name for each state or one or more are filled only with empty spaces. \n \nPlease check your responses and enter a unique name for each state."
             );
             return false;
         }
 
-        if (findDuplicates(labelArray).length !== 0) {
+        else if (findNumeric(filteredArray).length !== 0) {
+            alert(
+                "There are numbers in one or more of your state names. Please make sure the names do not include numbers."
+            );
+            return false;
+        }
+
+        else if (findDuplicates(filteredArray).length !== 0) {
             alert(
                 "You have entered duplicate names. Please enter a unique name for each state."
             );
@@ -144,12 +158,9 @@ class ColorSlider extends Component {
         /* For each mental state label's color sliders (blue: [50, false]), if the second element is false, this means the slider has not been moved from its default position.
            Participants cannot continue if they have not interacted with all the sliders. */
         for (const mentalState of Object.entries(this.state)) {
-            for (const slider of Object.entries(mentalState[1])) {
-                if (slider[0] === "label" || "fontColor") {
-                    continue;
-                } else {
-                    var change = slider[1][1];
-                    if (!change) {
+            for (const slider of Object.entries(mentalState[1])) { 
+                if ((slider[0] !== "label") && (slider[0] !== "fontColor")) {
+                    if (!slider[1][1]) {
                         alert(
                             "You have not moved the " +
                                 slider[0].toUpperCase() +
@@ -182,7 +193,8 @@ class ColorSlider extends Component {
     };
 
     render() {
-        const { mentalState1, mentalState2, mentalState3, mentalState4 } = this.state; 
+        const { mentalState1, mentalState2, mentalState3, mentalState4 } =
+            this.state;
         return (
             <div>
                 <Grid container justifyContent="center">

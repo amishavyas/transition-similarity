@@ -10,37 +10,6 @@ class PostTrialQuestions extends Component {
         super(props);
         this.state = {
             questionNumber: 1,
-            numStates: "",
-            mentalState1: {
-                label: "",
-                blue: [50, false],
-                green: [50, false],
-                orange: [50, false],
-                purple: [50, false],
-            },
-            mentalState2: {
-                label: "",
-                blue: [50, false],
-                green: [50, false],
-                orange: [50, false],
-                purple: [50, false],
-            },
-            mentalState3: {
-                label: "",
-                blue: [50, false],
-                green: [50, false],
-                orange: [50, false],
-                purple: [50, false],
-            },
-            mentalState4: {
-                label: "",
-                blue: [50, false],
-                green: [50, false],
-                orange: [50, false],
-                purple: [50, false],
-            },
-            similarityRatings: {},
-            valenceRatings: {},
         };
     }
 
