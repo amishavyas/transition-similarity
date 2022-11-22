@@ -228,7 +228,7 @@ class ColorSlider extends Component {
                                 each of the alien's four states.
                             </strong>
                             <br />
-                            You can name these states anything you like, and
+                            You can name these states anything you like (no numbers), and
                             enter these names in whatever order you like. Each
                             state must have a unique name.
                             <br />
